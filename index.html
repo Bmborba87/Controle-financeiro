@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="description" content="Controle de casas de apostas vinculadas a CPFs">
+  <title>Controle de Casas por CPF</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div>
+      <small>CONTROLE FINANCEIRO</small>
+      <h1>Casas de Apostas por CPF</h1>
+      <p>Cadastre CPFs, vincule casas e atualize os valores.</p>
+    </div>
+    <button id="themeBtn" class="icon-button" type="button" aria-label="Alternar tema">◐</button>
+  </header>
+
+  <main class="container">
+    <section class="summary">
+      <article><span>CPFs</span><strong id="totalCpfs">0</strong></article>
+      <article><span>Contas</span><strong id="totalContas">0</strong></article>
+      <article class="balance-card"><span>Saldo total</span><strong id="saldoTotal">R$ 0,00</strong></article>
+    </section>
+
+    <section class="card">
+      <h2>Cadastrar novo CPF</h2>
+      <form id="cpfForm" class="cpf-form">
+        <label>Nome ou identificação
+          <input id="personName" required maxlength="80" placeholder="Ex.: Bruno, Cliente 01">
+        </label>
+        <label>CPF
+          <input id="cpfNumber" required inputmode="numeric" maxlength="14" placeholder="000.000.000-00">
+        </label>
+        <button class="primary" type="submit">Adicionar CPF</button>
+      </form>
+      <p id="cpfError" class="error"></p>
+    </section>
+
+    <section class="card toolbar">
+      <label>Pesquisar
+        <input id="search" type="search" placeholder="Nome, CPF ou casa">
+      </label>
+      <div class="toolbar-buttons">
+        <button id="exportBtn" class="secondary" type="button">Exportar backup</button>
+        <label class="secondary file-button">Importar backup
+          <input id="importFile" type="file" accept=".json,application/json">
+        </label>
+      </div>
+    </section>
+
+    <section id="empty" class="card empty">
+      <div>📋</div>
+      <h2>Nenhum CPF cadastrado</h2>
+      <p>Cadastre o primeiro CPF para começar.</p>
+    </section>
+
+    <section id="personList" class="person-list"></section>
+  </main>
+
+  <dialog id="accountDialog">
+    <form id="accountForm">
+      <div class="dialog-header">
+        <div>
+          <h2 id="dialogTitle">Adicionar conta</h2>
+          <p id="dialogPerson"></p>
+        </div>
+        <button id="closeDialog" class="icon-button dark-icon" type="button">✕</button>
+      </div>
+
+      <input id="currentPersonId" type="hidden">
+      <input id="currentAccountId" type="hidden">
+
+      <label>Casa de apostas
+        <input id="accountHouse" required maxlength="80" placeholder="Ex.: Betano, Bet365">
+      </label>
+
+      <label>Usuário, e-mail ou identificação
+        <input id="accountLogin" maxlength="100" placeholder="Opcional">
+      </label>
+
+      <label>Valor atual
+        <div class="money">
+          <span>R$</span>
+          <input id="accountBalance" required inputmode="decimal" placeholder="0,00">
+        </div>
+      </label>
+
+      <label>Observações
+        <textarea id="accountNote" rows="3" maxlength="300" placeholder="Opcional"></textarea>
+      </label>
+
+      <div class="dialog-actions">
+        <button id="cancelDialog" class="secondary" type="button">Cancelar</button>
+        <button class="primary" type="submit">Salvar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast"></div>
+
+  <footer>Os dados ficam salvos somente neste navegador. Exporte backups regularmente.</footer>
+  <script src="app.js"></script>
+</body>
+</html>
